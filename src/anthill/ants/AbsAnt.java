@@ -80,6 +80,12 @@ public abstract class AbsAnt implements Runnable {
      */
     protected abstract void act();
 
+    /**
+     * Movement logic of any ant/insect
+     * 
+     * @param isFuzzy If true, the movements of the creature will be lighly random.
+     * @throws InterruptedException
+     */
     protected void move(final boolean isFuzzy) throws InterruptedException {
         if (isFuzzy) {
             while (this.position.x != this.target.x || this.position.y != this.target.y) {
