@@ -33,13 +33,14 @@ public class FoodMonitor {
     /**
      * Synchronized method to access food value
      *
-     * @param value How much food you want to take
-     * @param ant   Which ant want to access food
+     * @param value      How much food you want to take
+     * @param ant        Which ant want to access food
      * @param isDeposing is the ant deposing food rather than picking up ?
      * @return The int quantity of food consumed by the ant
      * @throws InterruptedException in case of thread interrupt
      */
-    public synchronized int _accesFood(final int value, final AbsAnt ant, boolean isDeposing) throws InterruptedException {
+    public synchronized int _accesFood(final int value, final AbsAnt ant, final boolean isDeposing)
+            throws InterruptedException {
         while (!this.foodIsAccessible || !this.isFoodPrioritary(ant)) {
             if (this.isInWaitingFoodLine(ant)) {
                 this.wait();

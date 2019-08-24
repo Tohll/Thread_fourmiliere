@@ -57,8 +57,9 @@ public class FoodSpots {
 
     private void initFoodSpots() {
         for (int i = 0; i < this.foodSpotsArray.length; i++) {
-            this.foodSpotsArray[i] = new FoodSpot(this.rand.nextInt(1001) + 1000, new Point(this.rand.nextInt(Configuration.SQUARE_SIDE) + 1,
-                    this.rand.nextInt(Configuration.SQUARE_SIDE) + 1));
+            this.foodSpotsArray[i] = new FoodSpot(this.rand.nextInt(1001) + 1000,
+                    new Point(this.rand.nextInt(Configuration.SQUARE_SIDE) + 1,
+                            this.rand.nextInt(Configuration.SQUARE_SIDE) + 1));
         }
     }
 

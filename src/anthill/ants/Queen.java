@@ -64,7 +64,10 @@ public class Queen extends AbsAnt {
 
     private void hatchSoldiers(final int aleaOfSoldiers) {
         int nbrOfSoldiers = this.rand.nextInt(aleaOfSoldiers);
-        if (nbrOfSoldiers + this.indexPeons > Configuration.MAX_SOLDIERS_COUNT) {
+        if (this.indexSoldiers == 1) {
+            nbrOfSoldiers = 3;
+        }
+        if (nbrOfSoldiers + this.indexSoldiers > Configuration.MAX_SOLDIERS_COUNT) {
             nbrOfSoldiers = 0;
         }
         for (int i = 1; i <= nbrOfSoldiers; i++) {
