@@ -10,6 +10,7 @@ import anthill.ants.AbsAnt;
 import anthill.ants.Queen;
 import anthill.interfaces.ObjectWithRange;
 import anthill.monitors.FoodMonitor;
+import anthill.threads.PredatorGenerator;
 import anthill.threads.RunnableHolder;
 import anthill.utils.Configuration;
 
@@ -33,6 +34,7 @@ public class Anthills implements ObjectWithRange {
     private final Vector<Vector<Double>> range;
     private final ImageIcon sprite;
     private final int width;
+    private AbsAnt queen;
 
     private Anthills() {
         this.width = Configuration.SQUARE_SIDE / 10;
@@ -88,11 +90,18 @@ public class Anthills implements ObjectWithRange {
     }
 
     public void initQueens() {
-        final RunnableHolder queen = new RunnableHolder(new Queen(1, 50, Anthills._getInstance()), "Queen 1");
-        queen.start();
+        this.queen = new Queen(1, 50, Anthills._getInstance());
+        final RunnableHolder queenThread = new RunnableHolder(this.queen, "Queen 1");
+        queenThread.start();
+        Thread predatorsGenerator = new Thread(new PredatorGenerator(), "Predator generator");
+        predatorsGenerator.start();
     }
 
     private Object readResolve() {
         return SingletonHolder.INSTANCE;
+    }
+
+    public AbsAnt _getQueen() {
+        return this.queen;
     }
 }
