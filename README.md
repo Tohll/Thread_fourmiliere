@@ -11,6 +11,8 @@ This project is a personal training workspace where I work on:
 - decisional algorithms
 - java performances
 
+It runs a simple visual application wich illsutrate the simulation of an anthill.
+
 
 
 Contact
