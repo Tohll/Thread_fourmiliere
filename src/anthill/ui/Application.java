@@ -1,11 +1,11 @@
 /**
  *
  */
-package anthill1_0.ui;
+package anthill.ui;
 
 import javax.swing.JFrame;
 
-import anthill1_0.controlers.Anthills;
+import anthill.controllers.Anthills;
 
 /**
  * @author Seldan

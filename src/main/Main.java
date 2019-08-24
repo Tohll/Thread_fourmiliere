@@ -2,7 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 
-import anthill1_0.ui.Application;
+import anthill.ui.Application;
 
 public class Main {
 

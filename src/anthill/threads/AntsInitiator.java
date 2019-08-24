@@ -1,4 +1,4 @@
-package anthill1_0.threads;
+package anthill.threads;
 
 import java.util.ArrayList;
 import java.util.List;

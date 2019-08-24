@@ -1,4 +1,4 @@
-package anthill1_0.controlers;
+package anthill.controllers;
 
 import java.awt.Image;
 import java.awt.Point;
@@ -8,8 +8,8 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-import anthill1_0.food_spots.FoodSpot;
-import anthill1_0.utils.Configuration;
+import anthill.food_spots.FoodSpot;
+import anthill.utils.Configuration;
 
 public class FoodSpots {
 

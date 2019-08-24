@@ -1,4 +1,4 @@
-package anthill1_0.ui;
+package anthill.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,14 +15,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import anthill1_0.controlers.Anthills;
-import anthill1_0.controlers.Ants;
-import anthill1_0.controlers.Collisions;
-import anthill1_0.controlers.FoodSpots;
-import anthill1_0.food_spots.FoodSpot;
-import anthill1_0.threads.RunnableHolder;
-import anthill1_0.utils.Configuration;
-import anthill1_0.utils.SpriteInfos;
+import anthill.controllers.Anthills;
+import anthill.controllers.Ants;
+import anthill.controllers.Collisions;
+import anthill.controllers.FoodSpots;
+import anthill.food_spots.FoodSpot;
+import anthill.threads.RunnableHolder;
+import anthill.utils.Configuration;
+import anthill.utils.SpriteInfos;
 
 public class GraphicEngine extends JPanel implements Runnable {
 

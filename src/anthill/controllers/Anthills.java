@@ -1,4 +1,4 @@
-package anthill1_0.controlers;
+package anthill.controllers;
 
 import java.awt.Image;
 import java.awt.Point;
@@ -6,12 +6,12 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
-import anthill1_0.ants.AbsAnt;
-import anthill1_0.ants.Queen;
-import anthill1_0.interfaces.ObjectWithRange;
-import anthill1_0.monitors.FoodMonitor;
-import anthill1_0.threads.RunnableHolder;
-import anthill1_0.utils.Configuration;
+import anthill.ants.AbsAnt;
+import anthill.ants.Queen;
+import anthill.interfaces.ObjectWithRange;
+import anthill.monitors.FoodMonitor;
+import anthill.threads.RunnableHolder;
+import anthill.utils.Configuration;
 
 /**
  * @author Seldan

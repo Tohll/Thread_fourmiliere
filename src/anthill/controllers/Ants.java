@@ -1,9 +1,9 @@
-package anthill1_0.controlers;
+package anthill.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import anthill1_0.threads.RunnableHolder;
+import anthill.threads.RunnableHolder;
 
 public class Ants {
 

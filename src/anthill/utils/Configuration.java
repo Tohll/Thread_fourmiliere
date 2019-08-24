@@ -1,4 +1,4 @@
-package anthill1_0.utils;
+package anthill.utils;
 
 public class Configuration {
 

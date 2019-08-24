@@ -1,6 +1,6 @@
-package anthill1_0.monitors;
+package anthill.monitors;
 
-import anthill1_0.ants.AbsAnt;
+import anthill.ants.AbsAnt;
 
 /**
  * @author Seldan

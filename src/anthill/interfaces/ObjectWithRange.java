@@ -1,4 +1,4 @@
-package anthill1_0.interfaces;
+package anthill.interfaces;
 
 import java.awt.Point;
 import java.util.Vector;

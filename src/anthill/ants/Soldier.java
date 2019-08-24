@@ -1,10 +1,10 @@
-package anthill1_0.ants;
+package anthill.ants;
 
-import anthill1_0.controlers.Anthills;
-import anthill1_0.controlers.Collisions;
-import anthill1_0.controlers.FoodSpots;
-import anthill1_0.food_spots.FoodSpot;
-import anthill1_0.utils.Configuration;
+import anthill.controllers.Anthills;
+import anthill.controllers.Collisions;
+import anthill.controllers.FoodSpots;
+import anthill.food_spots.FoodSpot;
+import anthill.utils.Configuration;
 
 /**
  * @author Seldan

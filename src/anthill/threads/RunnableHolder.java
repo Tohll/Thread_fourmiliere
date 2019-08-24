@@ -1,6 +1,6 @@
-package anthill1_0.threads;
+package anthill.threads;
 
-import anthill1_0.ants.AbsAnt;
+import anthill.ants.AbsAnt;
 
 public class RunnableHolder extends Thread {
 

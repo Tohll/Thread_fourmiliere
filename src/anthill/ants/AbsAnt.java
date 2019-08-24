@@ -1,10 +1,10 @@
-package anthill1_0.ants;
+package anthill.ants;
 
 import java.awt.Point;
 import java.util.Random;
 
-import anthill1_0.controlers.Anthills;
-import anthill1_0.utils.Configuration;
+import anthill.controllers.Anthills;
+import anthill.utils.Configuration;
 
 /**
  * @author Seldan

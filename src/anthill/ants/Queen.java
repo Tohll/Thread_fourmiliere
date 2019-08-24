@@ -1,9 +1,9 @@
-package anthill1_0.ants;
+package anthill.ants;
 
-import anthill1_0.controlers.Anthills;
-import anthill1_0.controlers.Ants;
-import anthill1_0.threads.RunnableHolder;
-import anthill1_0.utils.Configuration;
+import anthill.controllers.Anthills;
+import anthill.controllers.Ants;
+import anthill.threads.RunnableHolder;
+import anthill.utils.Configuration;
 
 public class Queen extends AbsAnt {
 

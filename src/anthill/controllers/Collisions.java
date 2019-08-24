@@ -1,8 +1,8 @@
-package anthill1_0.controlers;
+package anthill.controllers;
 
 import java.awt.Point;
 
-import anthill1_0.interfaces.ObjectWithRange;
+import anthill.interfaces.ObjectWithRange;
 
 public class Collisions {
 

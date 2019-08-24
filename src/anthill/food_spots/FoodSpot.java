@@ -1,12 +1,12 @@
-package anthill1_0.food_spots;
+package anthill.food_spots;
 
 import java.awt.Point;
 import java.util.Vector;
 
-import anthill1_0.ants.AbsAnt;
-import anthill1_0.interfaces.ObjectWithRange;
-import anthill1_0.monitors.FoodMonitor;
-import anthill1_0.utils.Configuration;
+import anthill.ants.AbsAnt;
+import anthill.interfaces.ObjectWithRange;
+import anthill.monitors.FoodMonitor;
+import anthill.utils.Configuration;
 
 /**
  * @author Seldan
