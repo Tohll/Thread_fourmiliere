@@ -30,24 +30,16 @@ public class FoodMonitor {
         this.tailFood = 0;
     }
 
-    public synchronized void _addFood(final int quantity) throws InterruptedException {
-        while (!this.foodIsAccessible) {
-            this.wait();
-        }
-        this.foodIsAccessible = false;
-        this.foodStock += quantity;
-        this._interactionDone();
-    }
-
     /**
      * Synchronized method to access food value
      *
      * @param value How much food you want to take
      * @param ant   Which ant want to access food
+     * @param isDeposing is the ant deposing food rather than picking up ?
      * @return The int quantity of food consumed by the ant
      * @throws InterruptedException in case of thread interrupt
      */
-    public synchronized int _getFood(final int value, final AbsAnt ant) throws InterruptedException {
+    public synchronized int _accesFood(final int value, final AbsAnt ant, boolean isDeposing) throws InterruptedException {
         while (!this.foodIsAccessible || !this.isFoodPrioritary(ant)) {
             if (this.isInWaitingFoodLine(ant)) {
                 this.wait();
@@ -63,9 +55,13 @@ public class FoodMonitor {
             this.tailFood = (this.tailFood + 1) % this.foodWaitingLine.length;
         }
         int quantity = 0;
-        if (this.foodStock - value > -1) {
-            this.foodStock -= value;
-            quantity = value;
+        if (isDeposing) {
+            this.foodStock += value;
+        } else {
+            if (this.foodStock - value > -1) {
+                this.foodStock -= value;
+                quantity = value;
+            }
         }
         return quantity;
     }

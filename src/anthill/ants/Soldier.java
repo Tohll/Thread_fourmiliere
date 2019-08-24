@@ -45,17 +45,17 @@ public final class Soldier extends AbsAnt {
         this.isUnderground = true;
         int foodEated = 0;
         try {
-            foodEated = this.anthill._getFood(100, this);
+            foodEated = this.anthill._accesFood(100, this, false);
         } catch (final InterruptedException e1) {
             e1.printStackTrace();
             Thread.currentThread().interrupt();
         }
         if (foodEated > 0) {
-            this.anthill._foodTaken();
+            this.anthill._foodAccessed();
             this.nbrOfMealsTaken++;
             this.hunger = 0;
         } else {
-            this.anthill._foodTaken();
+            this.anthill._foodAccessed();
             this.life = 0;
         }
     }

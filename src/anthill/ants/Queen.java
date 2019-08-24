@@ -25,12 +25,12 @@ public class Queen extends AbsAnt {
     private void eat() {
         int foodTaken = 0;
         try {
-            foodTaken = this.anthill._getFood(200, this);
+            foodTaken = this.anthill._accesFood(200, this, false);
         } catch (final InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }
-        this.anthill._foodTaken();
+        this.anthill._foodAccessed();
         if (foodTaken < 1) {
             this.life = 0;
         }

@@ -37,7 +37,7 @@ public class FoodSpot implements ObjectWithRange {
     }
 
     public int _getFood(final int quantity, final AbsAnt ant) throws InterruptedException {
-        return this.foodMonitor._getFood(quantity, ant);
+        return this.foodMonitor._accesFood(quantity, ant, false);
     }
 
     public int _getFoodStock() {

@@ -52,12 +52,13 @@ public class Peon extends AbsAnt {
             this.isUnderground = true;
             if (this.foodInInventory > 0) {
                 try {
-                    this.anthill._depositFood(this.foodInInventory);
+                    this.anthill._accesFood(this.foodInInventory, this, true);
                 } catch (final InterruptedException e) {
                     e.printStackTrace();
                     Thread.currentThread().interrupt();
                 }
                 this.foodInInventory = 0;
+                this.anthill._foodAccessed();
             }
         }
     }
@@ -66,16 +67,16 @@ public class Peon extends AbsAnt {
         this.isUnderground = true;
         int foodEated = 0;
         try {
-            foodEated = this.anthill._getFood(1, this);
+            foodEated = this.anthill._accesFood(1, this,false);
         } catch (final InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }
         if (foodEated > 0) {
-            this.anthill._foodTaken();
+            this.anthill._foodAccessed();
             this.nbrOfMealsTaken++;
         } else {
-            this.anthill._foodTaken();
+            this.anthill._foodAccessed();
             this.life = 0;
         }
     }
@@ -113,7 +114,7 @@ public class Peon extends AbsAnt {
                 this.foodSpotCandidate._setEmpty(true);
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();

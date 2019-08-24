@@ -40,18 +40,14 @@ public class Anthills implements ObjectWithRange {
         this.sprite = new ImageIcon("img/Ant_hill.png");
         this.position = new Point(Configuration.SQUARE_SIDE / 2, Configuration.SQUARE_SIDE / 2);
         this.range = this._computeRange(this.position, this.width + 200, this.height + 200);
-        this.foodMonitor = new FoodMonitor(Configuration.STARTING_FOOD_STOCK, Configuration.MAX_SOLDIERS_COUNT);
-    }
-
-    public void _depositFood(final int quantity) throws InterruptedException {
-        this.foodMonitor._addFood(quantity);
+        this.foodMonitor = new FoodMonitor(Configuration.STARTING_FOOD_STOCK, Configuration.MAX_SOLDIERS_COUNT + Configuration.MAX_PEONS_COUNT);
     }
 
     /**
      * @param foodFound
      * @throws InterruptedException
      */
-    public void _foodTaken() {
+    public void _foodAccessed() {
         this.foodMonitor._interactionDone();
     }
 
@@ -61,8 +57,8 @@ public class Anthills implements ObjectWithRange {
      * @return the int result of this.foodMonitor._getFood(quantity, ant)
      * @throws InterruptedException
      */
-    public int _getFood(final int quantity, final AbsAnt ant) throws InterruptedException {
-        return this.foodMonitor._getFood(quantity, ant);
+    public int _accesFood(final int quantity, final AbsAnt ant, boolean isDeposing) throws InterruptedException {
+        return this.foodMonitor._accesFood(quantity, ant, isDeposing);
     }
 
     public FoodMonitor _getFoodMonitor() {
