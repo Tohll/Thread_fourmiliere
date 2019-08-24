@@ -155,6 +155,8 @@ public class GraphicEngine extends JPanel implements Runnable {
         g.setColor(Color.WHITE);
         g.drawString(String.format("Food : %d", Anthills._getInstance()._getFoodMonitor()._getFoodStock()),
                 anthillPosition.x - (anthillSideSize / 2), anthillPosition.y - (anthillSideSize / 2));
+        g.drawString(String.format("Waiting : %d", Anthills._getInstance()._getFoodMonitor()._getSize()),
+                anthillPosition.x + (anthillSideSize / 2), anthillPosition.y + (anthillSideSize / 2));
         g.drawString(String.format("Soldiers : %d", this.totalAliveSoldiers), 20, 40);
         g.drawString(String.format("Peons : %d", this.totalAlivePeons), 20, 62);
     }
