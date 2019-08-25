@@ -27,7 +27,6 @@ public class PredatorGenerator implements Runnable {
         if (!deadPredators.isEmpty()) {
             Creeps._getInstance()._getPredators().removeAll(deadPredators);
         }
-        System.out.printf("Predators size : %d%n", Creeps._getInstance()._getPredators().size());
     }
 
     private void generateOnePredator() {

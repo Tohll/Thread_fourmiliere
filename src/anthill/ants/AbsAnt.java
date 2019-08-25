@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import anthill.controllers.Anthills;
+import anthill.controllers.Collisions;
 import anthill.utils.Configuration;
 
 /**
@@ -40,7 +41,7 @@ public abstract class AbsAnt implements Runnable {
      *                   than 1 will be brought back to 1.
      */
     protected AbsAnt(final int number, final int life, final Anthills anthill, final int speedIndex) {
-        this.fuzzRate = 2;
+        this.fuzzRate = 5;
         this.life = life;
         this.isUnderground = true;
         this.number = number;
@@ -89,17 +90,34 @@ public abstract class AbsAnt implements Runnable {
     protected void move(final boolean isFuzzy) throws InterruptedException {
         if (isFuzzy) {
             while ((this.position.x != this.target.x || this.position.y != this.target.y) && this.life > 0) {
-                if (this.position.x >= this.target.x) {
-                    this.position.x = this.position.x - (this.rand.nextInt(this.fuzzRate) + 2);
-                } else if (this.position.x <= this.target.x) {
-                    this.position.x = this.position.x + (this.rand.nextInt(this.fuzzRate) + 2);
+                if (Collisions._getInstance().isClose(this.position, this.target, this.fuzzRate)) {
+                    if (this.position.x > this.target.x) {
+                        this.position.x = this.position.x - 1;
+                    } else if (this.position.x < this.target.x) {
+                        this.position.x = this.position.x + 1;
+                    }
+                    if (this.position.y > this.target.y) {
+                        this.position.y = this.position.y - 1;
+                    } else if (this.position.y < this.target.y) {
+                        this.position.y = this.position.y + 1;
+                    }
+                    Thread.sleep(this.speedIndex * 3);
+                } else {
+                    final Point tempTarget = new Point();
+                    tempTarget.x = this.target.x + (this.fuzzRate * (this.rand.nextBoolean() ? 1 : -1));
+                    tempTarget.y = this.target.y + (this.fuzzRate * (this.rand.nextBoolean() ? 1 : -1));
+                    if (this.position.x >= tempTarget.x) {
+                        this.position.x = this.position.x - 1;
+                    } else if (this.position.x <= tempTarget.x) {
+                        this.position.x = this.position.x + 1;
+                    }
+                    if (this.position.y >= tempTarget.y) {
+                        this.position.y = this.position.y - 1;
+                    } else if (this.position.y <= tempTarget.y) {
+                        this.position.y = this.position.y + 1;
+                    }
+                    Thread.sleep(this.speedIndex * 3);
                 }
-                if (this.position.y >= this.target.y) {
-                    this.position.y = this.position.y - (this.rand.nextInt(this.fuzzRate) + 2);
-                } else if (this.position.y <= this.target.y) {
-                    this.position.y = this.position.y + (this.rand.nextInt(this.fuzzRate) + 2);
-                }
-                Thread.sleep(this.speedIndex * 3);
             }
         } else {
             while ((this.position.x != this.target.x || this.position.y != this.target.y) && this.life > 0) {

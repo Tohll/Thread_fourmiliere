@@ -25,6 +25,15 @@ public class Collisions {
                 && position.y <= objectWithRange._getRange().get(1).get(1);
     }
 
+    public boolean isClose(final Point position, final Point target, final int fuzzIndex) {
+        boolean isClose = false;
+        final int fuzz = fuzzIndex < 0 ? 0 : fuzzIndex;
+        if (Math.abs(position.x - target.x) < fuzz + 2 && Math.abs(position.y - target.y) < fuzz + 2) {
+            isClose = true;
+        }
+        return isClose;
+    }
+
     private Object readResolve() {
         return SingletonHolder.INSTANCE;
     }

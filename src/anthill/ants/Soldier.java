@@ -59,7 +59,7 @@ public final class Soldier extends AbsAnt {
             }
             this.target = this.targetedPredator._getRunnable()._getPosition();
             try {
-                this.move(false);
+                this.move(true);
             } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
@@ -111,7 +111,7 @@ public final class Soldier extends AbsAnt {
         }
         this.isUnderground = false;
         try {
-            this.move(false);
+            this.move(true);
             Thread.sleep(1000);
         } catch (final InterruptedException e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public final class Soldier extends AbsAnt {
                 }
             }
             try {
-                this.move(false);
+                this.move(true);
                 Thread.sleep(this.rand.nextInt(2500) + 1L);
             } catch (final InterruptedException e) {
                 e.printStackTrace();
