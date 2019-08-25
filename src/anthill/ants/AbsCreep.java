@@ -11,7 +11,7 @@ import anthill.utils.Configuration;
  * @author Seldan
  *
  */
-public abstract class AbsAnt implements Runnable {
+public abstract class AbsCreep implements Runnable {
 
     protected Anthills anthill;
     private final int fuzzRate;
@@ -40,8 +40,8 @@ public abstract class AbsAnt implements Runnable {
      * @param speedIndex : the ant's speed : the lower the faster. Every value lower
      *                   than 1 will be brought back to 1.
      */
-    protected AbsAnt(final int number, final int life, final Anthills anthill, final int speedIndex) {
-        this.fuzzRate = 5;
+    protected AbsCreep(final int number, final int life, final Anthills anthill, final int speedIndex) {
+        this.fuzzRate = 8;
         this.life = life;
         this.isUnderground = true;
         this.number = number;

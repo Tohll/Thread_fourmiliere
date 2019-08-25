@@ -3,7 +3,7 @@ package anthill.food_spots;
 import java.awt.Point;
 import java.util.Vector;
 
-import anthill.ants.AbsAnt;
+import anthill.ants.AbsCreep;
 import anthill.interfaces.ObjectWithRange;
 import anthill.monitors.FoodMonitor;
 import anthill.utils.Configuration;
@@ -36,7 +36,7 @@ public class FoodSpot implements ObjectWithRange {
         this.foodMonitor._interactionDone();
     }
 
-    public int _getFood(final int quantity, final AbsAnt ant) throws InterruptedException {
+    public int _getFood(final int quantity, final AbsCreep ant) throws InterruptedException {
         return this.foodMonitor._accesFood(quantity, ant, false);
     }
 

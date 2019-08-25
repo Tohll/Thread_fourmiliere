@@ -5,7 +5,7 @@ import anthill.controllers.Creeps;
 import anthill.threads.RunnableHolder;
 import anthill.utils.Configuration;
 
-public class Queen extends AbsAnt {
+public class Queen extends AbsCreep {
 
     private int indexPeons;
     private int indexSoldiers;

@@ -44,7 +44,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.delay = 25;
         this.rand = new Random();
         this.hasToDisplay = true;
-        this.initSceneryAndShadows(5000);
+        this.initSceneryAndShadows(Configuration.SCENERY_DENSITY);
         this.setBackground(new Color(169, 150, 25));
         this.setPreferredSize(new Dimension(Configuration.SQUARE_SIDE, Configuration.SQUARE_SIDE));
     }

@@ -12,7 +12,7 @@ import anthill.utils.Configuration;
  * @author Seldan
  *
  */
-public class Peon extends AbsAnt {
+public class Peon extends AbsCreep {
 
     private int foodInInventory;
     private FoodSpot foodSpotCandidate;

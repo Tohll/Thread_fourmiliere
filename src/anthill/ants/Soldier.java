@@ -15,7 +15,7 @@ import anthill.utils.Configuration;
  * @author Seldan
  *
  */
-public final class Soldier extends AbsAnt {
+public final class Soldier extends AbsCreep {
 
     private RunnableHolder targetedPredator;
 

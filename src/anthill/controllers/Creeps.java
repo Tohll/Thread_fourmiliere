@@ -3,7 +3,7 @@ package anthill.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import anthill.ants.AbsAnt;
+import anthill.ants.AbsCreep;
 import anthill.ants.Queen;
 import anthill.threads.PredatorGenerator;
 import anthill.threads.RunnableHolder;
@@ -44,7 +44,7 @@ public class Creeps {
     }
 
     public void _initQueensAndPredators() {
-        final AbsAnt queen = new Queen(1, 50, Anthills._getInstance());
+        final AbsCreep queen = new Queen(1, 50, Anthills._getInstance());
         final RunnableHolder queenThread = new RunnableHolder(queen, "Queen 1");
         Anthills._getInstance()._setQueen(queenThread);
         this.queens.add(queenThread);

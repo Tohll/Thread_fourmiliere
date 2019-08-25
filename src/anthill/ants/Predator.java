@@ -4,7 +4,7 @@ import anthill.controllers.Anthills;
 import anthill.controllers.Collisions;
 import anthill.utils.Configuration;
 
-public class Predator extends AbsAnt {
+public class Predator extends AbsCreep {
 
     public Predator(final int number, final int life, final Anthills anthill) {
         super(number, life, anthill, 10);
