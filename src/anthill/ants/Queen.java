@@ -14,12 +14,17 @@ public class Queen extends AbsAnt {
         super(number, life, anthill, 1);
         this.indexPeons = 1;
         this.indexSoldiers = 1;
+        this.position = anthill._getPosition();
     }
 
     @Override
     protected void act() {
-        this.hatchEggs();
-        this.eat();
+        if (this.life > 0) {
+            this.hatchEggs();
+        }
+        if (this.life > 0) {
+            this.eat();
+        }
     }
 
     private void eat() {

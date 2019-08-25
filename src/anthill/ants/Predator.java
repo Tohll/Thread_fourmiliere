@@ -14,10 +14,15 @@ public class Predator extends AbsAnt {
     @Override
     protected void act() {
         this.defineStartingPosition();
-        this.attack();
+        this.seek();
+        this.destroy();
     }
 
-    private void attack() {
+    private void destroy() {
+        this.life = 0;
+    }
+
+    private void seek() {
         this.isUnderground = false;
         this.target = this.anthill._getPosition();
         try {

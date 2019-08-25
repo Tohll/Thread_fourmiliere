@@ -88,7 +88,7 @@ public abstract class AbsAnt implements Runnable {
      */
     protected void move(final boolean isFuzzy) throws InterruptedException {
         if (isFuzzy) {
-            while (this.position.x != this.target.x || this.position.y != this.target.y) {
+            while ((this.position.x != this.target.x || this.position.y != this.target.y) && this.life > 0) {
                 if (this.position.x >= this.target.x) {
                     this.position.x = this.position.x - (this.rand.nextInt(this.fuzzRate) + 2);
                 } else if (this.position.x <= this.target.x) {
@@ -102,7 +102,7 @@ public abstract class AbsAnt implements Runnable {
                 Thread.sleep(this.speedIndex * 3);
             }
         } else {
-            while (this.position.x != this.target.x || this.position.y != this.target.y) {
+            while ((this.position.x != this.target.x || this.position.y != this.target.y) && this.life > 0) {
                 if (this.position.x > this.target.x) {
                     this.position.x = this.position.x - 1;
                 } else if (this.position.x < this.target.x) {
