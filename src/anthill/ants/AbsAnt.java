@@ -82,7 +82,7 @@ public abstract class AbsAnt implements Runnable {
 
     /**
      * Movement logic of any ant/insect
-     * 
+     *
      * @param isFuzzy If true, the movements of the creature will be lighly random.
      * @throws InterruptedException
      */

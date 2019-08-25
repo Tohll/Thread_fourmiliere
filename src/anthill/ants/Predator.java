@@ -6,7 +6,7 @@ import anthill.utils.Configuration;
 
 public class Predator extends AbsAnt {
 
-    public Predator(int number, int life, Anthills anthill) {
+    public Predator(final int number, final int life, final Anthills anthill) {
         super(number, life, anthill, 10);
         this.isUnderground = true;
     }
@@ -22,7 +22,7 @@ public class Predator extends AbsAnt {
         this.target = this.anthill._getPosition();
         try {
             this.move(false);
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }

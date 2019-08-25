@@ -13,8 +13,8 @@ public class FoodMonitor {
     private final AbsAnt[] foodWaitingLine;
 
     private int headFood;
-    private int tailFood;
     private int size;
+    private int tailFood;
 
     /**
      * Monitor to Handle a critical food stock. Has a FIFO waiting line build-in.
@@ -57,7 +57,7 @@ public class FoodMonitor {
         if (this.foodWaitingLine[this.tailFood] != null) {
             this.foodWaitingLine[this.tailFood] = null;
             this.tailFood = (this.tailFood + 1) % this.foodWaitingLine.length;
-            size--;
+            this.size--;
         }
         int quantity = 0;
         if (isDeposing) {
@@ -73,6 +73,10 @@ public class FoodMonitor {
 
     public int _getFoodStock() {
         return this.foodStock < 1 ? 0 : this.foodStock;
+    }
+
+    public int _getSize() {
+        return this.size;
     }
 
     public synchronized void _interactionDone() {
@@ -104,9 +108,5 @@ public class FoodMonitor {
             }
         }
         return result;
-    }
-
-    public int _getSize() {
-        return size;
     }
 }

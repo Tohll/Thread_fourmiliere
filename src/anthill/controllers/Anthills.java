@@ -7,10 +7,8 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 
 import anthill.ants.AbsAnt;
-import anthill.ants.Queen;
 import anthill.interfaces.ObjectWithRange;
 import anthill.monitors.FoodMonitor;
-import anthill.threads.PredatorGenerator;
 import anthill.threads.RunnableHolder;
 import anthill.utils.Configuration;
 
@@ -31,10 +29,10 @@ public class Anthills implements ObjectWithRange {
     private final FoodMonitor foodMonitor;
     private final int height;
     private final Point position;
+    private RunnableHolder queen;
     private final Vector<Vector<Double>> range;
     private final ImageIcon sprite;
     private final int width;
-    private AbsAnt queen;
 
     private Anthills() {
         this.width = Configuration.SQUARE_SIDE / 10;
@@ -76,6 +74,10 @@ public class Anthills implements ObjectWithRange {
         return this.position;
     }
 
+    public RunnableHolder _getQueen() {
+        return this.queen;
+    }
+
     @Override
     public Vector<Vector<Double>> _getRange() {
         return this.range;
@@ -85,23 +87,15 @@ public class Anthills implements ObjectWithRange {
         return this.width;
     }
 
+    public void _setQueen(final RunnableHolder queen) {
+        this.queen = queen;
+    }
+
     public Image getSprite() {
         return this.sprite.getImage();
     }
 
-    public void initQueens() {
-        this.queen = new Queen(1, 50, Anthills._getInstance());
-        final RunnableHolder queenThread = new RunnableHolder(this.queen, "Queen 1");
-        queenThread.start();
-        Thread predatorsGenerator = new Thread(new PredatorGenerator(), "Predator generator");
-        predatorsGenerator.start();
-    }
-
     private Object readResolve() {
         return SingletonHolder.INSTANCE;
-    }
-
-    public AbsAnt _getQueen() {
-        return this.queen;
     }
 }

@@ -8,9 +8,9 @@ import anthill.controllers.Creeps;
 
 public class PredatorGenerator implements Runnable {
 
-    private Random rand;
     private int predatorIndex;
-    
+    private final Random rand;
+
     public PredatorGenerator() {
         this.rand = new Random();
         this.predatorIndex = 1;
@@ -19,18 +19,20 @@ public class PredatorGenerator implements Runnable {
     @Override
     public void run() {
 
-        while (Anthills._getInstance()._getQueen()._isAlive()) {
+        while (Anthills._getInstance()._getQueen()._getRunnable()._isAlive()) {
             try {
                 Thread.sleep(this.rand.nextInt(7001) + 8000L);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
-            
-            RunnableHolder predator = new RunnableHolder(new Predator(predatorIndex, 10, Anthills._getInstance()), String.format("Predator %d", predatorIndex));
+
+            final RunnableHolder predator = new RunnableHolder(
+                    new Predator(this.predatorIndex, 10, Anthills._getInstance()),
+                    String.format("Predator %d", this.predatorIndex));
             Creeps._getInstance()._getPredators().add(predator);
             predator.start();
-            predatorIndex++;
+            this.predatorIndex++;
         }
     }
 }
