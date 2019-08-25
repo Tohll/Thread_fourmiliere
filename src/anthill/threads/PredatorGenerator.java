@@ -17,13 +17,17 @@ public class PredatorGenerator implements Runnable {
         this.predatorIndex = 1;
     }
 
-    @Override
-    public void run() {
-
-        while (Anthills._getInstance()._getQueen()._getRunnable()._isAlive()) {
-            this.generateOnePredator();
-            this.cleanPredators();
+    private void cleanPredators() {
+        final ArrayList<RunnableHolder> deadPredators = new ArrayList<>();
+        for (final RunnableHolder deadPredator : Creeps._getInstance()._getPredators()) {
+            if (!deadPredator.isAlive()) {
+                deadPredators.add(deadPredator);
+            }
         }
+        if (!deadPredators.isEmpty()) {
+            Creeps._getInstance()._getPredators().removeAll(deadPredators);
+        }
+        System.out.printf("Predators size : %d%n", Creeps._getInstance()._getPredators().size());
     }
 
     private void generateOnePredator() {
@@ -42,16 +46,12 @@ public class PredatorGenerator implements Runnable {
         predator.start();
     }
 
-    private void cleanPredators() {
-        ArrayList<RunnableHolder> deadPredators = new ArrayList<>();
-        for(RunnableHolder deadPredator : Creeps._getInstance()._getPredators()) {
-            if (!deadPredator.isAlive()) {
-                deadPredators.add(deadPredator);
-            }
+    @Override
+    public void run() {
+
+        while (Anthills._getInstance()._getQueen()._getRunnable()._isAlive()) {
+            this.generateOnePredator();
+            this.cleanPredators();
         }
-        if (!deadPredators.isEmpty()) {
-            Creeps._getInstance()._getPredators().removeAll(deadPredators);
-        }
-        System.out.printf("Predators size : %d%n", Creeps._getInstance()._getPredators().size());
     }
 }

@@ -18,6 +18,13 @@ public class Predator extends AbsAnt {
         this.destroy();
     }
 
+    private void defineStartingPosition() {
+        do {
+            this.position.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
+            this.position.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
+        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position));
+    }
+
     private void destroy() {
         this.life = 0;
     }
@@ -31,12 +38,5 @@ public class Predator extends AbsAnt {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void defineStartingPosition() {
-        do {
-            this.position.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-            this.position.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position));
     }
 }
