@@ -5,21 +5,22 @@ import java.util.List;
 
 import anthill.threads.RunnableHolder;
 
-public class Ants {
+public class Creeps {
 
     private static class SingletonHolder {
-        private static final Ants INSTANCE = new Ants();
+        private static final Creeps INSTANCE = new Creeps();
     }
 
-    public static Ants _getInstance() {
+    public static Creeps _getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
     private final ArrayList<RunnableHolder> peons = new ArrayList<>();
     private final ArrayList<RunnableHolder> queens = new ArrayList<>();
     private final ArrayList<RunnableHolder> soldiers = new ArrayList<>();
+    private final ArrayList<RunnableHolder> predators = new ArrayList<>();
 
-    private Ants() {
+    private Creeps() {
 
     }
 
@@ -37,6 +38,10 @@ public class Ants {
 
     private Object readResolve() {
         return SingletonHolder.INSTANCE;
+    }
+
+    public List<RunnableHolder> _getPredators() {
+        return predators;
     }
 
 }

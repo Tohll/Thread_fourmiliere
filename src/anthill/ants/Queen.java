@@ -1,7 +1,7 @@
 package anthill.ants;
 
 import anthill.controllers.Anthills;
-import anthill.controllers.Ants;
+import anthill.controllers.Creeps;
 import anthill.threads.RunnableHolder;
 import anthill.utils.Configuration;
 
@@ -56,7 +56,7 @@ public class Queen extends AbsAnt {
             final RunnableHolder peon = new RunnableHolder(
                     new Peon(i, Configuration.SOLDIERS_LIFE, Anthills._getInstance()),
                     String.format("Peon [%d] %d", this.number, this.indexPeons));
-            Ants._getInstance()._getPeons().add(peon);
+            Creeps._getInstance()._getPeons().add(peon);
             peon.start();
             this.indexPeons++;
         }
@@ -74,7 +74,7 @@ public class Queen extends AbsAnt {
             final RunnableHolder soldier = new RunnableHolder(
                     new Soldier(i, Configuration.SOLDIERS_LIFE, Anthills._getInstance()),
                     String.format("Soldier [%d] %d", this.number, this.indexSoldiers));
-            Ants._getInstance()._getSoldiers().add(soldier);
+            Creeps._getInstance()._getSoldiers().add(soldier);
             soldier.start();
             this.indexSoldiers++;
         }

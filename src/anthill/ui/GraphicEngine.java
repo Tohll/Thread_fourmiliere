@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import anthill.controllers.Anthills;
-import anthill.controllers.Ants;
+import anthill.controllers.Creeps;
 import anthill.controllers.Collisions;
 import anthill.controllers.FoodSpots;
 import anthill.food_spots.FoodSpot;
@@ -88,7 +88,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         int x;
         int y;
         final ArrayList<RunnableHolder> peonsArray = new ArrayList<>();
-        peonsArray.addAll(Ants._getInstance()._getPeons());
+        peonsArray.addAll(Creeps._getInstance()._getPeons());
         for (final Iterator<RunnableHolder> iterator = peonsArray.iterator(); iterator.hasNext();) {
             final RunnableHolder peon = iterator.next();
             if (peon._getRunnable()._isAlive()) {
@@ -129,7 +129,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         int x;
         int y;
         final ArrayList<RunnableHolder> soldiersArray = new ArrayList<>();
-        soldiersArray.addAll(Ants._getInstance()._getSoldiers());
+        soldiersArray.addAll(Creeps._getInstance()._getSoldiers());
         for (final Iterator<RunnableHolder> iterator = soldiersArray.iterator(); iterator.hasNext();) {
             final RunnableHolder soldier = iterator.next();
             if (soldier._getRunnable()._isAlive()) {
@@ -155,6 +155,8 @@ public class GraphicEngine extends JPanel implements Runnable {
         g.setColor(Color.WHITE);
         g.drawString(String.format("Food : %d", Anthills._getInstance()._getFoodMonitor()._getFoodStock()),
                 anthillPosition.x - (anthillSideSize / 2), anthillPosition.y - (anthillSideSize / 2));
+        g.drawString(String.format("Waiting : %d", Anthills._getInstance()._getFoodMonitor()._getSize()),
+                anthillPosition.x + (anthillSideSize / 2), anthillPosition.y + (anthillSideSize / 2));
         g.drawString(String.format("Soldiers : %d", this.totalAliveSoldiers), 20, 40);
         g.drawString(String.format("Peons : %d", this.totalAlivePeons), 20, 62);
     }
@@ -185,10 +187,32 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.drawScenery(g);
         this.drawAnthills(g);
         this.drawPeons(g);
+        this.drawPredators(g);
         this.drawSoldiers(g);
         this.drawFoodSpots(g);
         this.drawShadows(g);
         this.drawUI(g);
+    }
+
+    private void drawPredators(Graphics g) {
+        g.setColor(Color.RED);
+        final int r = 14;
+        int x;
+        int y;
+        final ArrayList<RunnableHolder> predatorsArray = new ArrayList<>();
+        predatorsArray.addAll(Creeps._getInstance()._getPredators());
+        for (final Iterator<RunnableHolder> iterator = predatorsArray.iterator(); iterator.hasNext();) {
+            final RunnableHolder predator = iterator.next();
+            if (predator._getRunnable()._isAlive()) {
+                if (!predator._getRunnable()._isUnderground()) {
+                    x = predator._getRunnable()._getPosition().x;
+                    y = predator._getRunnable()._getPosition().y;
+                    x = x - (r / 2);
+                    y = y - (r / 2);
+                    g.fillOval(x, y, r, r);
+                }
+            }
+        }
     }
 
     @Override
