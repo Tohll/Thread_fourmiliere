@@ -44,7 +44,7 @@ public class Creeps {
     }
 
     public void _initQueensAndPredators() {
-        final AbsCreep queen = new Queen(1, 50, Anthills._getInstance());
+        final AbsCreep queen = new Queen(1, 200, Anthills._getInstance());
         final RunnableHolder queenThread = new RunnableHolder(queen, "Queen 1");
         Anthills._getInstance()._setQueen(queenThread);
         this.queens.add(queenThread);

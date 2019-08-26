@@ -28,13 +28,13 @@ public class GraphicEngine extends JPanel implements Runnable {
 
     private static final long serialVersionUID = -7273880090886312807L;
     private ImageIcon bush;
-    private Font defaultFont;
-    private Font smallDefaultFont;
+    private final Font defaultFont;
     private final int delay;
     private final boolean hasToDisplay;
     private final Random rand;
     private SpriteInfos[] sceneryArray;
     private ImageIcon shadow;
+    private final Font smallDefaultFont;
     private int totalAlivePeons;
     private int totalAliveSoldiers;
     private final Color uiBackgroundColor;
@@ -72,7 +72,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         g.setColor(Color.WHITE);
         for (final FoodSpot foodSpot : FoodSpots._getInstance()._getFoodSpots()) {
             if (foodSpot._isDiscovered()) {
-                final Font font = smallDefaultFont;
+                final Font font = this.smallDefaultFont;
                 g.setFont(font);
                 g.drawString(String.format("Food : %d", foodSpot._getFoodStock()),
                         (foodSpot._getPosition().x - (foodSpot._getWidth() / 2) - 5),
@@ -82,6 +82,27 @@ public class GraphicEngine extends JPanel implements Runnable {
                         foodSpot._getHeight(), this);
             }
         }
+    }
+
+    private void drawLifeBar(final Graphics g, final int width, final int height, final int x, final int y,
+            final RunnableHolder creep) {
+        g.setColor(this.uiBackgroundColor);
+        g.fillRect(x, y, width, height);
+        final double div = (double) (creep._getRunnable()._getLife()) / (double) (creep._getRunnable()._getMaxLife());
+        final double lifePercentage = 100d * div;
+        if (lifePercentage > 50) {
+            g.setColor(Color.GREEN);
+        } else if (lifePercentage > 25) {
+            g.setColor(Color.ORANGE);
+        } else {
+            g.setColor(Color.RED);
+        }
+        final double aFloat = width / 100d;
+        final double bFloat = aFloat * lifePercentage;
+        final int aInt = (int) (this.round(bFloat, 2));
+        g.fillRect(x, y, aInt, height);
+        g.setColor(Color.BLACK);
+        g.drawRect(x, y, width, height);
     }
 
     private void drawPeons(final Graphics g) {
@@ -122,9 +143,9 @@ public class GraphicEngine extends JPanel implements Runnable {
                 x = x - (r / 2);
                 y = y - (r / 2);
                 g.fillOval(x, y, r, r);
-                g.setFont(smallDefaultFont);
-                g.setColor(Color.WHITE);
-                g.drawString(String.format("%d", predator._getRunnable()._getLife()), x + 2, y - 5);
+                if (predator._getRunnable()._getLife() < predator._getRunnable()._getMaxLife()) {
+                    this.drawLifeBar(g, r, 7, x, y - 9, predator);
+                }
             }
         }
     }
@@ -175,15 +196,15 @@ public class GraphicEngine extends JPanel implements Runnable {
         final int anthillSideSize = Configuration.SQUARE_SIDE / 10;
         g.setColor(this.uiBackgroundColor);
         g.fillRect(15, 20, 122, 50);
-        final Font font = defaultFont;
+        final Font font = this.defaultFont;
         g.setFont(font);
         g.setColor(Color.WHITE);
-        g.drawString(String.format("Food : %d", Anthills._getInstance()._getFoodMonitor()._getFoodStock()),
-                anthillPosition.x - (anthillSideSize / 2), anthillPosition.y - (anthillSideSize / 2));
-        g.drawString(String.format("Waiting : %d", Anthills._getInstance()._getFoodMonitor()._getSize()),
-                anthillPosition.x + (anthillSideSize / 2), anthillPosition.y + (anthillSideSize / 2));
+        final int x = anthillPosition.x - (anthillSideSize / 2);
+        final int y = anthillPosition.y - (anthillSideSize / 2);
+        g.drawString(String.format("Food : %d", Anthills._getInstance()._getFoodMonitor()._getFoodStock()), x, y - 8);
         g.drawString(String.format("Soldiers : %d", this.totalAliveSoldiers), 20, 40);
         g.drawString(String.format("Peons : %d", this.totalAlivePeons), 20, 62);
+        this.drawLifeBar(g, anthillSideSize, 6, x, y, Anthills._getInstance()._getQueen());
     }
 
     /**
@@ -217,6 +238,11 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.drawFoodSpots(g);
         this.drawShadows(g);
         this.drawUI(g);
+    }
+
+    private double round(final double value, final int precision) {
+        final int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 
     @Override
