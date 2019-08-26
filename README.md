@@ -1,6 +1,6 @@
 # AntHill
 
-*Version 2.6*
+*Version 2.6.1*
 
 ## Description
 
