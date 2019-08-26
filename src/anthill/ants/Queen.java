@@ -43,7 +43,7 @@ public class Queen extends AbsCreep {
 
     private void hatchEggs() {
         this.hatchSoldiers(3);
-        this.hatchPeons(24);
+        this.hatchPeons(100);
         try {
             Thread.sleep(this.rand.nextInt(5001) + 5000L);
         } catch (final InterruptedException e) {
@@ -53,7 +53,7 @@ public class Queen extends AbsCreep {
     }
 
     private void hatchPeons(final int aleaOfPeons) {
-        int nbrOfPeons = this.rand.nextInt(aleaOfPeons);
+        int nbrOfPeons = this.rand.nextInt(aleaOfPeons) + 1;
         if (nbrOfPeons + this.indexPeons > Configuration.MAX_PEONS_COUNT) {
             nbrOfPeons = 0;
         }
