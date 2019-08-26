@@ -1,6 +1,6 @@
 package anthill.monitors;
 
-import anthill.ants.AbsAnt;
+import anthill.ants.AbsCreep;
 
 /**
  * @author Seldan
@@ -10,11 +10,11 @@ public class FoodMonitor {
 
     private boolean foodIsAccessible = true;
     private int foodStock;
-    private final AbsAnt[] foodWaitingLine;
+    private final AbsCreep[] foodWaitingLine;
 
     private int headFood;
-    private int tailFood;
     private int size;
+    private int tailFood;
 
     /**
      * Monitor to Handle a critical food stock. Has a FIFO waiting line build-in.
@@ -26,7 +26,7 @@ public class FoodMonitor {
      */
     public FoodMonitor(final int foodStock, final int capacity) {
         this.foodStock = foodStock;
-        this.foodWaitingLine = new AbsAnt[capacity];
+        this.foodWaitingLine = new AbsCreep[capacity];
         this.headFood = 0;
         this.tailFood = 0;
         this.size = 0;
@@ -41,7 +41,7 @@ public class FoodMonitor {
      * @return The int quantity of food consumed by the ant
      * @throws InterruptedException in case of thread interrupt
      */
-    public synchronized int _accesFood(final int value, final AbsAnt ant, final boolean isDeposing)
+    public synchronized int _accesFood(final int value, final AbsCreep ant, final boolean isDeposing)
             throws InterruptedException {
         while (!this.foodIsAccessible || !this.isFoodPrioritary(ant)) {
             if (this.isInWaitingFoodLine(ant)) {
@@ -57,7 +57,7 @@ public class FoodMonitor {
         if (this.foodWaitingLine[this.tailFood] != null) {
             this.foodWaitingLine[this.tailFood] = null;
             this.tailFood = (this.tailFood + 1) % this.foodWaitingLine.length;
-            size--;
+            this.size--;
         }
         int quantity = 0;
         if (isDeposing) {
@@ -75,6 +75,10 @@ public class FoodMonitor {
         return this.foodStock < 1 ? 0 : this.foodStock;
     }
 
+    public int _getSize() {
+        return this.size;
+    }
+
     public synchronized void _interactionDone() {
         this.foodIsAccessible = true;
         this.notifyAll();
@@ -84,7 +88,7 @@ public class FoodMonitor {
      * @param ant The ant to compare
      * @return true if ant is the FI, else false
      */
-    private boolean isFoodPrioritary(final AbsAnt ant) {
+    private boolean isFoodPrioritary(final AbsCreep ant) {
         boolean result = false;
         if (this.foodWaitingLine[this.tailFood] == null || this.foodWaitingLine[this.tailFood] == ant) {
             result = true;
@@ -96,17 +100,13 @@ public class FoodMonitor {
      * @param ant The ant to compare
      * @return true if ant is already waiting in the line, else false
      */
-    private boolean isInWaitingFoodLine(final AbsAnt ant) {
+    private boolean isInWaitingFoodLine(final AbsCreep ant) {
         boolean result = false;
-        for (final AbsAnt waitingAnt : this.foodWaitingLine) {
+        for (final AbsCreep waitingAnt : this.foodWaitingLine) {
             if (waitingAnt != null && waitingAnt == ant) {
                 result = true;
             }
         }
         return result;
-    }
-
-    public int _getSize() {
-        return size;
     }
 }

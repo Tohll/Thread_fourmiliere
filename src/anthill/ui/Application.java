@@ -5,7 +5,7 @@ package anthill.ui;
 
 import javax.swing.JFrame;
 
-import anthill.controllers.Anthills;
+import anthill.controllers.Creeps;
 
 /**
  * @author Seldan
@@ -22,6 +22,6 @@ public class Application extends JFrame {
         this.setTitle("Fourmiliere 1.0");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        Anthills._getInstance().initQueens();
+        Creeps._getInstance()._initQueensAndPredators();
     }
 }

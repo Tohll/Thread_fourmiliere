@@ -12,13 +12,13 @@ import anthill.utils.Configuration;
  * @author Seldan
  *
  */
-public class Peon extends AbsAnt {
+public class Peon extends AbsCreep {
 
     private int foodInInventory;
     private FoodSpot foodSpotCandidate;
 
     public Peon(final int number, final int life, final Anthills anthill) {
-        super(number, life, anthill, 6);
+        super(number, life, anthill, 2);
         this.name = "Peon " + number;
         this.foodSpotCandidate = null;
         this.foodInInventory = 0;
@@ -26,41 +26,47 @@ public class Peon extends AbsAnt {
 
     @Override
     protected void act() {
-        this.seekSomethingToDo();
-        this.executeChoice();
-        this.gather();
-        this.comeBack();
-        this.deposit();
+        if (this.life > 0) {
+            this.seekSomethingToDo();
+        }
+        if (this.life > 0) {
+            this.executeChoice();
+        }
+        if (this.life > 0) {
+            this.gather();
+        }
+        if (this.life > 0) {
+            this.comeBack();
+        }
+        if (this.life > 0) {
+            this.deposit();
+        }
     }
 
     private void comeBack() {
-        if (this.life > 0) {
-            this.isUnderground = false;
-            this.target.x = Anthills._getInstance()._getPosition().x;
-            this.target.y = Anthills._getInstance()._getPosition().y;
-            try {
-                this.move(true);
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
+        this.isUnderground = false;
+        this.target.x = Anthills._getInstance()._getPosition().x;
+        this.target.y = Anthills._getInstance()._getPosition().y;
+        try {
+            this.move(true);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
     private void deposit() {
-        if (this.life > 0) {
-            this.isUnderground = true;
-            if (this.foodInInventory > 0) {
-                try {
-                    this.anthill._accesFood(this.foodInInventory, this, true);
-                } catch (final InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-                this.anthill._foodAccessed();
+        this.isUnderground = true;
+        if (this.foodInInventory > 0) {
+            try {
+                this.anthill._accesFood(this.foodInInventory, this, true);
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-            this.foodInInventory = 0;
+            this.anthill._foodAccessed();
         }
+        this.foodInInventory = 0;
     }
 
     private void eat() {
@@ -81,14 +87,12 @@ public class Peon extends AbsAnt {
     }
 
     private void executeChoice() {
-        if (this.life > 0) {
-            this.isUnderground = false;
-            try {
-                this.move(true);
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
+        this.isUnderground = false;
+        try {
+            this.move(true);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -100,27 +104,25 @@ public class Peon extends AbsAnt {
     }
 
     private void gather() {
-        if (this.life > 0) {
-            this.isUnderground = true;
-            final int quantity = 3;
-            try {
-                this.foodInInventory = this.foodSpotCandidate._getFood(quantity, this);
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
-            if (this.foodSpotCandidate._getFoodStock() < quantity) {
-                this.foodSpotCandidate._setEmpty(true);
-            }
-            try {
-                Thread.sleep(10);
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
-            this.foodSpotCandidate._foodTaken();
-            this.foodSpotCandidate = null;
+        this.isUnderground = true;
+        final int quantity = 3;
+        try {
+            this.foodInInventory = this.foodSpotCandidate._getFood(quantity, this);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+        if (this.foodSpotCandidate._getFoodStock() < quantity) {
+            this.foodSpotCandidate._setEmpty(true);
+        }
+        try {
+            Thread.sleep(10);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
+        this.foodSpotCandidate._foodTaken();
+        this.foodSpotCandidate = null;
     }
 
     private void seekSomethingToDo() {

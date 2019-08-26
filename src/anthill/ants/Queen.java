@@ -5,7 +5,7 @@ import anthill.controllers.Creeps;
 import anthill.threads.RunnableHolder;
 import anthill.utils.Configuration;
 
-public class Queen extends AbsAnt {
+public class Queen extends AbsCreep {
 
     private int indexPeons;
     private int indexSoldiers;
@@ -14,12 +14,17 @@ public class Queen extends AbsAnt {
         super(number, life, anthill, 1);
         this.indexPeons = 1;
         this.indexSoldiers = 1;
+        this.position = anthill._getPosition();
     }
 
     @Override
     protected void act() {
-        this.hatchEggs();
-        this.eat();
+        if (this.life > 0) {
+            this.hatchEggs();
+        }
+        if (this.life > 0) {
+            this.eat();
+        }
     }
 
     private void eat() {
@@ -38,7 +43,7 @@ public class Queen extends AbsAnt {
 
     private void hatchEggs() {
         this.hatchSoldiers(3);
-        this.hatchPeons(24);
+        this.hatchPeons(100);
         try {
             Thread.sleep(this.rand.nextInt(5001) + 5000L);
         } catch (final InterruptedException e) {
@@ -48,7 +53,7 @@ public class Queen extends AbsAnt {
     }
 
     private void hatchPeons(final int aleaOfPeons) {
-        int nbrOfPeons = this.rand.nextInt(aleaOfPeons);
+        int nbrOfPeons = this.rand.nextInt(aleaOfPeons) + 1;
         if (nbrOfPeons + this.indexPeons > Configuration.MAX_PEONS_COUNT) {
             nbrOfPeons = 0;
         }

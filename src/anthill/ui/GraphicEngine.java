@@ -16,8 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import anthill.controllers.Anthills;
-import anthill.controllers.Creeps;
 import anthill.controllers.Collisions;
+import anthill.controllers.Creeps;
 import anthill.controllers.FoodSpots;
 import anthill.food_spots.FoodSpot;
 import anthill.threads.RunnableHolder;
@@ -44,7 +44,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.delay = 25;
         this.rand = new Random();
         this.hasToDisplay = true;
-        this.initSceneryAndShadows(5000);
+        this.initSceneryAndShadows(Configuration.SCENERY_DENSITY);
         this.setBackground(new Color(169, 150, 25));
         this.setPreferredSize(new Dimension(Configuration.SQUARE_SIDE, Configuration.SQUARE_SIDE));
     }
@@ -100,6 +100,25 @@ public class GraphicEngine extends JPanel implements Runnable {
                     y = y - (r / 2);
                     g.fillOval(x, y, r, r);
                 }
+            }
+        }
+    }
+
+    private void drawPredators(final Graphics g) {
+        g.setColor(Color.RED);
+        final int r = 14;
+        int x;
+        int y;
+        final ArrayList<RunnableHolder> predatorsArray = new ArrayList<>();
+        predatorsArray.addAll(Creeps._getInstance()._getPredators());
+        for (final Iterator<RunnableHolder> iterator = predatorsArray.iterator(); iterator.hasNext();) {
+            final RunnableHolder predator = iterator.next();
+            if (predator._getRunnable()._isAlive() && !predator._getRunnable()._isUnderground()) {
+                x = predator._getRunnable()._getPosition().x;
+                y = predator._getRunnable()._getPosition().y;
+                x = x - (r / 2);
+                y = y - (r / 2);
+                g.fillOval(x, y, r, r);
             }
         }
     }
@@ -192,27 +211,6 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.drawFoodSpots(g);
         this.drawShadows(g);
         this.drawUI(g);
-    }
-
-    private void drawPredators(Graphics g) {
-        g.setColor(Color.RED);
-        final int r = 14;
-        int x;
-        int y;
-        final ArrayList<RunnableHolder> predatorsArray = new ArrayList<>();
-        predatorsArray.addAll(Creeps._getInstance()._getPredators());
-        for (final Iterator<RunnableHolder> iterator = predatorsArray.iterator(); iterator.hasNext();) {
-            final RunnableHolder predator = iterator.next();
-            if (predator._getRunnable()._isAlive()) {
-                if (!predator._getRunnable()._isUnderground()) {
-                    x = predator._getRunnable()._getPosition().x;
-                    y = predator._getRunnable()._getPosition().y;
-                    x = x - (r / 2);
-                    y = y - (r / 2);
-                    g.fillOval(x, y, r, r);
-                }
-            }
-        }
     }
 
     @Override

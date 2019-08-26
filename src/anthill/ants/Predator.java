@@ -4,9 +4,9 @@ import anthill.controllers.Anthills;
 import anthill.controllers.Collisions;
 import anthill.utils.Configuration;
 
-public class Predator extends AbsAnt {
+public class Predator extends AbsCreep {
 
-    public Predator(int number, int life, Anthills anthill) {
+    public Predator(final int number, final int life, final Anthills anthill) {
         super(number, life, anthill, 10);
         this.isUnderground = true;
     }
@@ -14,18 +14,8 @@ public class Predator extends AbsAnt {
     @Override
     protected void act() {
         this.defineStartingPosition();
-        this.attack();
-    }
-
-    private void attack() {
-        this.isUnderground = false;
-        this.target = this.anthill._getPosition();
-        try {
-            this.move(false);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
-        }
+        this.seek();
+        this.destroy();
     }
 
     private void defineStartingPosition() {
@@ -33,5 +23,20 @@ public class Predator extends AbsAnt {
             this.position.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
             this.position.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
         } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position));
+    }
+
+    private void destroy() {
+        this.life = 0;
+    }
+
+    private void seek() {
+        this.isUnderground = false;
+        this.target = this.anthill._getPosition();
+        try {
+            this.move(false);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
     }
 }
