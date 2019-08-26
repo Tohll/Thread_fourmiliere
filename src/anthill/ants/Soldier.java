@@ -41,6 +41,12 @@ public final class Soldier extends AbsCreep {
         }
     }
 
+    private void attack() {
+        if (this.targetedPredator._getRunnable()._getLife() > 0) {
+            this.targetedPredator._getRunnable()._receiveDamage(1);
+        }
+    }
+
     private boolean checkForPredator() {
         boolean predatorFound = false;
         final ArrayList<RunnableHolder> predators = (ArrayList<RunnableHolder>) Creeps._getInstance()._getPredators();
@@ -64,6 +70,20 @@ public final class Soldier extends AbsCreep {
             } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
+            }
+            while (this.targetedPredator._getRunnable()._getLife() > 0) {
+                this.target = this.targetedPredator._getRunnable()._getPosition();
+                try {
+                    this.move(true);
+                } catch (final InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+                this.attack();
+                this.target = new Point();
+                this.target.x = this.position.x;
+                this.target.y = this.position.y;
+                this.moveToCloseRandomPoint(10);
             }
             this.targetedPredator = null;
             this.target = new Point();
@@ -125,34 +145,8 @@ public final class Soldier extends AbsCreep {
                 this.target.x = this.position.x;
                 this.target.y = this.position.y;
             }
-            int alea = this.rand.nextInt(2);
-            int value = this.rand.nextInt(150) + 1;
-            if (alea < 1) {
-                this.target.x = this.target.x + value;
-                if (this.target.x > Configuration.SQUARE_SIDE) {
-                    this.target.x = Configuration.SQUARE_SIDE;
-                }
-            } else {
-                this.target.x = this.target.x - value;
-                if (this.target.x < 0) {
-                    this.target.x = 0;
-                }
-            }
-            alea = this.rand.nextInt(2);
-            value = this.rand.nextInt(50) + 1;
-            if (alea < 1) {
-                this.target.y = this.target.y + value;
-                if (this.target.y > Configuration.SQUARE_SIDE) {
-                    this.target.y = Configuration.SQUARE_SIDE;
-                }
-            } else {
-                this.target.y = this.target.y - value;
-                if (this.target.y < 0) {
-                    this.target.y = 0;
-                }
-            }
+            this.moveToCloseRandomPoint(150);
             try {
-                this.move(true);
                 Thread.sleep(this.rand.nextInt(2500) + 1L);
             } catch (final InterruptedException e) {
                 e.printStackTrace();

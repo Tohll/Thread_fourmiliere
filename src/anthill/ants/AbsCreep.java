@@ -56,6 +56,10 @@ public abstract class AbsCreep implements Runnable {
         this.name = String.format("Unnamed %d", number);
     }
 
+    public int _getLife() {
+        return this.life;
+    }
+
     public String _getName() {
         return this.name;
     }
@@ -74,6 +78,10 @@ public abstract class AbsCreep implements Runnable {
 
     public boolean _isUnderground() {
         return this.isUnderground;
+    }
+
+    public void _receiveDamage(final int damageInflicted) {
+        this.life = this.life - damageInflicted;
     }
 
     /**
@@ -156,6 +164,39 @@ public abstract class AbsCreep implements Runnable {
                 }
                 Thread.sleep(this.speedIndex * 3);
             }
+        }
+    }
+
+    protected void moveToCloseRandomPoint(final int maxDistance) {
+        int value = this.rand.nextInt(maxDistance) + 1;
+        if (this.rand.nextBoolean()) {
+            this.target.x = this.target.x + value;
+            if (this.target.x > Configuration.SQUARE_SIDE) {
+                this.target.x = Configuration.SQUARE_SIDE;
+            }
+        } else {
+            this.target.x = this.target.x - value;
+            if (this.target.x < 0) {
+                this.target.x = 0;
+            }
+        }
+        value = this.rand.nextInt(50) + 1;
+        if (this.rand.nextBoolean()) {
+            this.target.y = this.target.y + value;
+            if (this.target.y > Configuration.SQUARE_SIDE) {
+                this.target.y = Configuration.SQUARE_SIDE;
+            }
+        } else {
+            this.target.y = this.target.y - value;
+            if (this.target.y < 0) {
+                this.target.y = 0;
+            }
+        }
+        try {
+            this.move(true);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
