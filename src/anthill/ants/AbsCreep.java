@@ -41,7 +41,7 @@ public abstract class AbsCreep implements Runnable {
      *                   than 1 will be brought back to 1.
      */
     protected AbsCreep(final int number, final int life, final Anthills anthill, final int speedIndex) {
-        this.fuzzRate = 8;
+        this.fuzzRate = 4;
         this.life = life;
         this.isUnderground = true;
         this.number = number;
@@ -101,22 +101,45 @@ public abstract class AbsCreep implements Runnable {
                     } else if (this.position.y < this.target.y) {
                         this.position.y = this.position.y + 1;
                     }
-                    Thread.sleep(this.speedIndex * 3);
+                    Thread.sleep(this.speedIndex * 2);
                 } else {
                     final Point tempTarget = new Point();
+
                     tempTarget.x = this.target.x + (this.fuzzRate * (this.rand.nextBoolean() ? 1 : -1));
                     tempTarget.y = this.target.y + (this.fuzzRate * (this.rand.nextBoolean() ? 1 : -1));
-                    if (this.position.x >= tempTarget.x) {
-                        this.position.x = this.position.x - 1;
-                    } else if (this.position.x <= tempTarget.x) {
-                        this.position.x = this.position.x + 1;
+
+                    if ((this.position.x > tempTarget.x && this.position.y > tempTarget.y)
+                            || (this.position.x < tempTarget.x && this.position.y < tempTarget.y)
+                            || (this.position.x > tempTarget.x && this.position.y < tempTarget.y)
+                            || (this.position.x < tempTarget.x && this.position.y > tempTarget.y)) {
+                        if (this.rand.nextBoolean()) {
+                            if (this.position.x >= tempTarget.x) {
+                                this.position.x = this.position.x - 1;
+                            } else if (this.position.x <= tempTarget.x) {
+                                this.position.x = this.position.x + 1;
+                            }
+                            Thread.sleep(this.speedIndex * 2);
+                        } else {
+                            if (this.position.y >= tempTarget.y) {
+                                this.position.y = this.position.y - 1;
+                            } else if (this.position.y <= tempTarget.y) {
+                                this.position.y = this.position.y + 1;
+                            }
+                            Thread.sleep(this.speedIndex * 2);
+                        }
+                    } else {
+                        if (this.position.x >= tempTarget.x) {
+                            this.position.x = this.position.x - 2;
+                        } else if (this.position.x <= tempTarget.x) {
+                            this.position.x = this.position.x + 2;
+                        }
+                        if (this.position.y >= tempTarget.y) {
+                            this.position.y = this.position.y - 2;
+                        } else if (this.position.y <= tempTarget.y) {
+                            this.position.y = this.position.y + 2;
+                        }
+                        Thread.sleep(this.speedIndex * 2);
                     }
-                    if (this.position.y >= tempTarget.y) {
-                        this.position.y = this.position.y - 1;
-                    } else if (this.position.y <= tempTarget.y) {
-                        this.position.y = this.position.y + 1;
-                    }
-                    Thread.sleep(this.speedIndex * 3);
                 }
             }
         } else {

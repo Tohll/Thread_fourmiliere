@@ -50,7 +50,8 @@ public class Anthills implements ObjectWithRange {
      * @return the int result of this.foodMonitor._getFood(quantity, ant)
      * @throws InterruptedException
      */
-    public int _accesFood(final int quantity, final AbsCreep ant, final boolean isDeposing) throws InterruptedException {
+    public int _accesFood(final int quantity, final AbsCreep ant, final boolean isDeposing)
+            throws InterruptedException {
         return this.foodMonitor._accesFood(quantity, ant, isDeposing);
     }
 

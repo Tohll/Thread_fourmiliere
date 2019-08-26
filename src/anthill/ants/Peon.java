@@ -18,7 +18,7 @@ public class Peon extends AbsCreep {
     private FoodSpot foodSpotCandidate;
 
     public Peon(final int number, final int life, final Anthills anthill) {
-        super(number, life, anthill, 3);
+        super(number, life, anthill, 2);
         this.name = "Peon " + number;
         this.foodSpotCandidate = null;
         this.foodInInventory = 0;

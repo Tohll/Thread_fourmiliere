@@ -20,7 +20,7 @@ public final class Soldier extends AbsCreep {
     private RunnableHolder targetedPredator;
 
     public Soldier(final int number, final int life, final Anthills anthill) {
-        super(number, life, anthill, 5);
+        super(number, life, anthill, 3);
         this.name = "Soldier " + number;
         this.targetedPredator = null;
     }
@@ -52,6 +52,7 @@ public final class Soldier extends AbsCreep {
         }
         if (!activesPredators.isEmpty()) {
             predatorFound = true;
+            this.isUnderground = false;
             if (activesPredators.size() == 1) {
                 this.targetedPredator = activesPredators.get(0);
             } else {
@@ -80,7 +81,7 @@ public final class Soldier extends AbsCreep {
         try {
             this.target.x = this.anthill._getPosition().x;
             this.target.y = this.anthill._getPosition().y;
-            this.move(false);
+            this.move(true);
         } catch (final InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
