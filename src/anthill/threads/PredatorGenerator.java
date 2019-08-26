@@ -38,7 +38,7 @@ public class PredatorGenerator implements Runnable {
         }
 
         final RunnableHolder predator = new RunnableHolder(
-                new Predator(this.predatorIndex, 10, Anthills._getInstance()),
+                new Predator(this.predatorIndex, 50, Anthills._getInstance()),
                 String.format("Predator %d", this.predatorIndex));
         Creeps._getInstance()._getPredators().add(predator);
         this.predatorIndex++;

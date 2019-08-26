@@ -28,6 +28,8 @@ public class GraphicEngine extends JPanel implements Runnable {
 
     private static final long serialVersionUID = -7273880090886312807L;
     private ImageIcon bush;
+    private Font defaultFont;
+    private Font smallDefaultFont;
     private final int delay;
     private final boolean hasToDisplay;
     private final Random rand;
@@ -38,6 +40,8 @@ public class GraphicEngine extends JPanel implements Runnable {
     private final Color uiBackgroundColor;
 
     public GraphicEngine() {
+        this.defaultFont = new Font("Arial", Font.BOLD, 18);
+        this.smallDefaultFont = new Font("Arial", Font.BOLD, 11);
         this.totalAlivePeons = 0;
         this.totalAliveSoldiers = 0;
         this.uiBackgroundColor = new Color(0, 0, 0, 0.5f);
@@ -52,7 +56,6 @@ public class GraphicEngine extends JPanel implements Runnable {
     @Override
     public void addNotify() {
         super.addNotify();
-
         Thread animator;
         animator = new Thread(this);
         animator.start();
@@ -69,7 +72,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         g.setColor(Color.WHITE);
         for (final FoodSpot foodSpot : FoodSpots._getInstance()._getFoodSpots()) {
             if (foodSpot._isDiscovered()) {
-                final Font font = new Font("Arial", Font.BOLD, 11);
+                final Font font = smallDefaultFont;
                 g.setFont(font);
                 g.drawString(String.format("Food : %d", foodSpot._getFoodStock()),
                         (foodSpot._getPosition().x - (foodSpot._getWidth() / 2) - 5),
@@ -105,7 +108,6 @@ public class GraphicEngine extends JPanel implements Runnable {
     }
 
     private void drawPredators(final Graphics g) {
-        g.setColor(Color.RED);
         final int r = 14;
         int x;
         int y;
@@ -114,11 +116,15 @@ public class GraphicEngine extends JPanel implements Runnable {
         for (final Iterator<RunnableHolder> iterator = predatorsArray.iterator(); iterator.hasNext();) {
             final RunnableHolder predator = iterator.next();
             if (predator._getRunnable()._isAlive() && !predator._getRunnable()._isUnderground()) {
+                g.setColor(Color.RED);
                 x = predator._getRunnable()._getPosition().x;
                 y = predator._getRunnable()._getPosition().y;
                 x = x - (r / 2);
                 y = y - (r / 2);
                 g.fillOval(x, y, r, r);
+                g.setFont(smallDefaultFont);
+                g.setColor(Color.WHITE);
+                g.drawString(String.format("%d", predator._getRunnable()._getLife()), x + 2, y - 5);
             }
         }
     }
@@ -169,7 +175,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         final int anthillSideSize = Configuration.SQUARE_SIDE / 10;
         g.setColor(this.uiBackgroundColor);
         g.fillRect(15, 20, 122, 50);
-        final Font font = new Font("Arial", Font.BOLD, 18);
+        final Font font = defaultFont;
         g.setFont(font);
         g.setColor(Color.WHITE);
         g.drawString(String.format("Food : %d", Anthills._getInstance()._getFoodMonitor()._getFoodStock()),

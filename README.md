@@ -2,13 +2,13 @@
 
 *Version 2.6.1*
 
+![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
+
 ## Description
 
 ### What's new ?
 
  - Soldiers now seek and destroy predators
-
-![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
 
 ### What is it ?
 
