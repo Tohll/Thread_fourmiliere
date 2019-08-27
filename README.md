@@ -27,7 +27,7 @@ Why not ?
 
 ### Configuration
 
-You can tweak the simuation by modifying some of the value available in src/anthill/utils/Configuration.java
+You can tweak the simuation by editing some of the values available in [Configuration.java](https://github.com/Tohll/Thread_fourmiliere/blob/Master/src/anthill/utils/Configuration.java)
 
 ### Contact
 

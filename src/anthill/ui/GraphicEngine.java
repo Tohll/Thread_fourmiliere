@@ -190,7 +190,7 @@ public class GraphicEngine extends JPanel implements Runnable {
                     if (((Soldier) soldier._getRunnable())._isSearching()) {
                         g.setColor(Color.WHITE);
                         g.setFont(this.smallDefaultFont);
-                        g.drawString("Searching !", x - 22, y - 3);
+                        g.drawString("Searching...", x - 22, y - 3);
                     } else if (((Soldier) soldier._getRunnable())._isAttacking()) {
                         g.setColor(Color.WHITE);
                         g.setFont(this.smallDefaultFont);
