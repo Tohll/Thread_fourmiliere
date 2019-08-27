@@ -1,6 +1,6 @@
 # AntHill
 
-*Version 2.8*
+*Version 2.8.2*
 
 ![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
 
@@ -8,8 +8,9 @@
 
 ### What's new ?
 
- - lifeBars are now displaying predator's life when damaged, and queen's life upon the anthill
- - feedback of soldiers actions are now displayed upon them
+ - LifeBars are now displaying predator's life when damaged, and queen's life above the anthill
+ - LifeBars for the soldiers
+ - Feedback of soldiers actions are now displayed above them
 
 ### What is it ?
 

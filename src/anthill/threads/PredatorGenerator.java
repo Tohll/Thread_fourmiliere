@@ -38,7 +38,7 @@ public class PredatorGenerator implements Runnable {
         this.predatorIndex++;
         predator.start();
         try {
-            Thread.sleep(this.rand.nextInt(7001) + 15000L);
+            Thread.sleep(this.rand.nextInt(7001) + 20000L);
         } catch (final InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();

@@ -74,10 +74,13 @@ public final class Soldier extends AbsCreep {
             if (this.targetedPredator._getRunnable()._getLife() > 0) {
                 this.targetedPredator._getRunnable()._receiveDamage(1);
             }
+            this.life = this.life - 2;
             this.target = new Point();
             this.target.x = this.position.x;
             this.target.y = this.position.y;
-            this.moveToCloseRandomPoint(2);
+            if (this.life > 0 ) {
+                this.moveToCloseRandomPoint(2);
+            }
         }
         this.targetedPredator = null;
         this.target = new Point();
@@ -135,8 +138,11 @@ public final class Soldier extends AbsCreep {
         if (foodEated > 0) {
             this.nbrOfMealsTaken++;
             this.hunger = 0;
+            if (this.life < this.maxLife) {
+                this.life++;
+            }
         } else {
-            this.life = 0;
+            this.life--;
         }
     }
 

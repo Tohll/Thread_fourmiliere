@@ -102,7 +102,11 @@ public class GraphicEngine extends JPanel implements Runnable {
         final double bDouble = aDouble * lifePercentage;
         final int percentWidth = (int) (this.round(bDouble, 2));
         g.fillRect(x, y, percentWidth, height);
-        g.setColor(Color.BLACK);
+        if (creep._getRunnable()._getLife() > 0) {
+            g.setColor(Color.BLACK);
+        } else {
+            g.setColor(Color.RED);
+        }
         g.drawRect(x, y, width, height);
     }
 
@@ -187,6 +191,9 @@ public class GraphicEngine extends JPanel implements Runnable {
                     y = y - (r / 2);
                     g.setColor(Color.BLACK);
                     g.fillOval(x, y, r, r);
+                    if (soldier._getRunnable()._getLife() < soldier._getRunnable()._getMaxLife()) {
+                        this.drawLifeBar(g, r, 7, x, y - 9, soldier);
+                    }
                     if (((Soldier) soldier._getRunnable())._isSearching()) {
                         g.setColor(Color.WHITE);
                         g.setFont(this.smallDefaultFont);
@@ -194,7 +201,7 @@ public class GraphicEngine extends JPanel implements Runnable {
                     } else if (((Soldier) soldier._getRunnable())._isAttacking()) {
                         g.setColor(Color.WHITE);
                         g.setFont(this.smallDefaultFont);
-                        g.drawString("Attacking !", x - 22, y - 3);
+                        g.drawString("Incoming !", x - 22, y - 3);
                     }
                 }
             }
@@ -206,8 +213,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         final int anthillSideSize = Configuration.WIDTH / 10;
         g.setColor(this.uiBackgroundColor);
         g.fillRect(15, 20, 122, 50);
-        final Font font = this.defaultFont;
-        g.setFont(font);
+        g.setFont(this.defaultFont);
         g.setColor(Color.WHITE);
         final int x = anthillPosition.x - (anthillSideSize / 2);
         final int y = anthillPosition.y - (anthillSideSize / 2);
