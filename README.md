@@ -1,6 +1,6 @@
 # AntHill
 
-*Version 2.7*
+*Version 2.7.1*
 
 ![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
 
@@ -24,6 +24,10 @@ It runs a simple visual application wich illustrate the simulation of an anthill
 ### Why Ants ?
 
 Why not ?
+
+### Configuration
+
+You can tweak the simuation by modifying some of the value available in src/anthill/utils/Configuration.java
 
 ### Contact
 

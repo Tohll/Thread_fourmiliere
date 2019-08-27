@@ -42,9 +42,9 @@ public class GraphicEngine extends JPanel implements Runnable {
     public GraphicEngine() {
         this.defaultFont = new Font("Arial", Font.BOLD, 18);
         this.smallDefaultFont = new Font("Arial", Font.BOLD, 11);
+        this.uiBackgroundColor = new Color(0, 0, 0, 0.3f);
         this.totalAlivePeons = 0;
         this.totalAliveSoldiers = 0;
-        this.uiBackgroundColor = new Color(0, 0, 0, 0.5f);
         this.delay = 25;
         this.rand = new Random();
         this.hasToDisplay = true;

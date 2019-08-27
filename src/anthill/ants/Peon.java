@@ -67,6 +67,7 @@ public class Peon extends AbsCreep {
             this.anthill._foodAccessed();
         }
         this.foodInInventory = 0;
+        this.eat();
     }
 
     private void eat() {
@@ -144,8 +145,10 @@ public class Peon extends AbsCreep {
                 Thread.currentThread().interrupt();
             }
             this.comeBack();
-            this.eat();
             candidate = (ArrayList<FoodSpot>) FoodSpots._getInstance()._findARandomDiscoveredFoodSpot();
+            if (candidate.isEmpty()) {
+                this.eat();
+            }
         } while (candidate.isEmpty() && this.life > 0);
         if (!candidate.isEmpty()) {
             this.foodSpotCandidate = candidate.get(0);
