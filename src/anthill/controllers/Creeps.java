@@ -7,6 +7,7 @@ import anthill.ants.AbsCreep;
 import anthill.ants.Queen;
 import anthill.threads.PredatorGenerator;
 import anthill.threads.RunnableHolder;
+import anthill.utils.Configuration;
 
 public class Creeps {
 
@@ -44,7 +45,7 @@ public class Creeps {
     }
 
     public void _initQueensAndPredators() {
-        final AbsCreep queen = new Queen(1, 50, Anthills._getInstance());
+        final AbsCreep queen = new Queen(1, Configuration.QUEEN_LIFE, Anthills._getInstance());
         final RunnableHolder queenThread = new RunnableHolder(queen, "Queen 1");
         Anthills._getInstance()._setQueen(queenThread);
         this.queens.add(queenThread);

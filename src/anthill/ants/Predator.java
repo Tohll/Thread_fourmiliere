@@ -16,6 +16,9 @@ public class Predator extends AbsCreep {
         this.defineStartingPosition();
         this.seek();
         this.destroy();
+        if (!this.anthill._getQueen()._getRunnable()._isAlive()) {
+            this.life = 0;
+        }
     }
 
     private void defineStartingPosition() {
@@ -26,7 +29,15 @@ public class Predator extends AbsCreep {
     }
 
     private void destroy() {
-        this.life = 0;
+        while (this.anthill._getQueen()._getRunnable()._isAlive() && this.life > 0) {
+            this.anthill._getQueen()._getRunnable()._receiveDamage(15);
+            try {
+                Thread.sleep(500L);
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private void seek() {

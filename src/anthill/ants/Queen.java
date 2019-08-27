@@ -37,7 +37,11 @@ public class Queen extends AbsCreep {
         }
         this.anthill._foodAccessed();
         if (foodTaken < 1) {
-            this.life = 0;
+            this.life = this.life - 25;
+        } else {
+            if (this.life < this.maxLife) {
+                this.life = this.life + 5;
+            }
         }
     }
 

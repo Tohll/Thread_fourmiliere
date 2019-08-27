@@ -1,14 +1,15 @@
 # AntHill
 
-*Version 2.6.1*
+*Version 2.7*
+
+![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
 
 ## Description
 
 ### What's new ?
 
- - Soldiers now seek and destroy predators
-
-![screenshot](https://github.com/Tohll/Thread_fourmiliere/raw/Master/screenshot.jpg)
+ - predators now seek and destroy queens
+ - Queens lose life is can't eat, and regenerate slowly if can eat
 
 ### What is it ?
 

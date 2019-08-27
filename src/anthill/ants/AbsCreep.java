@@ -19,6 +19,7 @@ public abstract class AbsCreep implements Runnable {
     protected boolean isAlive;
     protected boolean isUnderground;
     protected int life;
+    protected int maxLife;
     protected String name;
     protected int nbrOfMealsTaken;
     protected int number;
@@ -43,6 +44,7 @@ public abstract class AbsCreep implements Runnable {
     protected AbsCreep(final int number, final int life, final Anthills anthill, final int speedIndex) {
         this.fuzzRate = 4;
         this.life = life;
+        this.maxLife = life;
         this.isUnderground = true;
         this.number = number;
         this.anthill = anthill;
@@ -57,7 +59,11 @@ public abstract class AbsCreep implements Runnable {
     }
 
     public int _getLife() {
-        return this.life;
+        return this.life < 0 ? 0 : this.life;
+    }
+
+    public int _getMaxLife() {
+        return this.maxLife;
     }
 
     public String _getName() {

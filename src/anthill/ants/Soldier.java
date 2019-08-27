@@ -42,9 +42,31 @@ public final class Soldier extends AbsCreep {
     }
 
     private void attack() {
-        if (this.targetedPredator._getRunnable()._getLife() > 0) {
-            this.targetedPredator._getRunnable()._receiveDamage(1);
+        this.target = this.targetedPredator._getRunnable()._getPosition();
+        try {
+            this.move(true);
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+        while (this.targetedPredator._getRunnable()._getLife() > 0) {
+            this.target = this.targetedPredator._getRunnable()._getPosition();
+            try {
+                this.move(true);
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+            if (this.targetedPredator._getRunnable()._getLife() > 0) {
+                this.targetedPredator._getRunnable()._receiveDamage(1);
+            }
+            this.target = new Point();
+            this.target.x = this.position.x;
+            this.target.y = this.position.y;
+            this.moveToCloseRandomPoint(5);
+        }
+        this.targetedPredator = null;
+        this.target = new Point();
     }
 
     private boolean checkForPredator() {
@@ -64,29 +86,7 @@ public final class Soldier extends AbsCreep {
             } else {
                 this.targetedPredator = activesPredators.get(this.rand.nextInt(activesPredators.size()));
             }
-            this.target = this.targetedPredator._getRunnable()._getPosition();
-            try {
-                this.move(true);
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }
-            while (this.targetedPredator._getRunnable()._getLife() > 0) {
-                this.target = this.targetedPredator._getRunnable()._getPosition();
-                try {
-                    this.move(true);
-                } catch (final InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-                this.attack();
-                this.target = new Point();
-                this.target.x = this.position.x;
-                this.target.y = this.position.y;
-                this.moveToCloseRandomPoint(10);
-            }
-            this.targetedPredator = null;
-            this.target = new Point();
+            this.attack();
         }
         return predatorFound;
     }
