@@ -99,8 +99,8 @@ public class Peon extends AbsCreep {
 
     private void findASpotToSlack() {
         do {
-            this.target.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-            this.target.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
+            this.target.x = this.rand.nextInt(Configuration.WIDTH) + 1;
+            this.target.y = this.rand.nextInt(Configuration.HEIGHT) + 1;
         } while (!Collisions._getInstance()._isPointInObjectRange(this.anthill, this.target));
     }
 

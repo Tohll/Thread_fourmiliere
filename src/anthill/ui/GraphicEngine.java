@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import anthill.ants.Soldier;
 import anthill.controllers.Anthills;
 import anthill.controllers.Collisions;
 import anthill.controllers.Creeps;
@@ -50,7 +51,7 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.hasToDisplay = true;
         this.initSceneryAndShadows(Configuration.SCENERY_DENSITY);
         this.setBackground(new Color(169, 150, 25));
-        this.setPreferredSize(new Dimension(Configuration.SQUARE_SIDE, Configuration.SQUARE_SIDE));
+        this.setPreferredSize(new Dimension(Configuration.WIDTH, Configuration.HEIGHT));
     }
 
     @Override
@@ -165,12 +166,11 @@ public class GraphicEngine extends JPanel implements Runnable {
     }
 
     private void drawShadows(final Graphics g) {
-        g.drawImage(this.shadow.getImage(), 0, 0, Configuration.SQUARE_SIDE, Configuration.SQUARE_SIDE, this);
+        g.drawImage(this.shadow.getImage(), 0, 0, Configuration.WIDTH, Configuration.HEIGHT, this);
     }
 
     private void drawSoldiers(final Graphics g) {
         this.totalAliveSoldiers = 0;
-        g.setColor(Color.BLACK);
         final int r = 9;
         int x;
         int y;
@@ -185,7 +185,17 @@ public class GraphicEngine extends JPanel implements Runnable {
                     y = soldier._getRunnable()._getPosition().y;
                     x = x - (r / 2);
                     y = y - (r / 2);
+                    g.setColor(Color.BLACK);
                     g.fillOval(x, y, r, r);
+                    if (((Soldier) soldier._getRunnable())._isSearching()) {
+                        g.setColor(Color.WHITE);
+                        g.setFont(this.smallDefaultFont);
+                        g.drawString("Searching !", x - 22, y - 3);
+                    } else if (((Soldier) soldier._getRunnable())._isAttacking()) {
+                        g.setColor(Color.WHITE);
+                        g.setFont(this.smallDefaultFont);
+                        g.drawString("Attacking !", x - 22, y - 3);
+                    }
                 }
             }
         }
@@ -193,7 +203,7 @@ public class GraphicEngine extends JPanel implements Runnable {
 
     private void drawUI(final Graphics g) {
         final Point anthillPosition = Anthills._getInstance()._getPosition();
-        final int anthillSideSize = Configuration.SQUARE_SIDE / 10;
+        final int anthillSideSize = Configuration.WIDTH / 10;
         g.setColor(this.uiBackgroundColor);
         g.fillRect(15, 20, 122, 50);
         final Font font = this.defaultFont;
@@ -217,11 +227,11 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.bush = new ImageIcon("img/Aloevera.png");
         this.shadow = new ImageIcon("img/shadow.png");
         for (int i = 0; i < nbrOfItems; i++) {
-            Point position = new Point(this.rand.nextInt(Configuration.SQUARE_SIDE) + 1,
-                    this.rand.nextInt(Configuration.SQUARE_SIDE) + 1);
+            Point position = new Point(this.rand.nextInt(Configuration.WIDTH) + 1,
+                    this.rand.nextInt(Configuration.WIDTH) + 1);
             while (Collisions._getInstance()._isPointInObjectRange(Anthills._getInstance(), position)) {
-                position = new Point(this.rand.nextInt(Configuration.SQUARE_SIDE) + 1,
-                        this.rand.nextInt(Configuration.SQUARE_SIDE) + 1);
+                position = new Point(this.rand.nextInt(Configuration.WIDTH) + 1,
+                        this.rand.nextInt(Configuration.WIDTH) + 1);
             }
             this.sceneryArray[i] = new SpriteInfos(this.rand.nextInt(360) + 1f, this.rand.nextInt(40), position);
         }

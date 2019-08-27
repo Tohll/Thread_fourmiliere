@@ -23,9 +23,10 @@ public class Predator extends AbsCreep {
 
     private void defineStartingPosition() {
         do {
-            this.position.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-            this.position.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position) && this.anthill._getQueen()._getRunnable()._getLife() > 0);
+            this.position.x = this.rand.nextInt(Configuration.WIDTH) + 1;
+            this.position.y = this.rand.nextInt(Configuration.HEIGHT) + 1;
+        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position)
+                && this.anthill._getQueen()._getRunnable()._getLife() > 0);
     }
 
     private void destroy() {

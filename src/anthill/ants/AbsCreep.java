@@ -49,8 +49,8 @@ public abstract class AbsCreep implements Runnable {
         this.number = number;
         this.anthill = anthill;
         this.nbrOfMealsTaken = 0;
-        this.position = new Point(Configuration.SQUARE_SIDE / 2, Configuration.SQUARE_SIDE / 2);
-        this.target = new Point(Configuration.SQUARE_SIDE / 2, Configuration.SQUARE_SIDE / 2);
+        this.position = new Point(Configuration.WIDTH / 2, Configuration.HEIGHT / 2);
+        this.target = new Point(Configuration.WIDTH / 2, Configuration.HEIGHT / 2);
         this.speedIndex = speedIndex < 1 ? 1 : speedIndex;
         this.isAlive = true;
         this.hunger = 0;
@@ -177,8 +177,8 @@ public abstract class AbsCreep implements Runnable {
         int value = this.rand.nextInt(maxDistance) + 1;
         if (this.rand.nextBoolean()) {
             this.target.x = this.target.x + value;
-            if (this.target.x > Configuration.SQUARE_SIDE) {
-                this.target.x = Configuration.SQUARE_SIDE;
+            if (this.target.x > Configuration.WIDTH) {
+                this.target.x = Configuration.WIDTH;
             }
         } else {
             this.target.x = this.target.x - value;
@@ -189,8 +189,8 @@ public abstract class AbsCreep implements Runnable {
         value = this.rand.nextInt(50) + 1;
         if (this.rand.nextBoolean()) {
             this.target.y = this.target.y + value;
-            if (this.target.y > Configuration.SQUARE_SIDE) {
-                this.target.y = Configuration.SQUARE_SIDE;
+            if (this.target.y > Configuration.WIDTH) {
+                this.target.y = Configuration.WIDTH;
             }
         } else {
             this.target.y = this.target.y - value;
