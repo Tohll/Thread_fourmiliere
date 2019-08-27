@@ -97,10 +97,10 @@ public class GraphicEngine extends JPanel implements Runnable {
         } else {
             g.setColor(Color.RED);
         }
-        final double aFloat = width / 100d;
-        final double bFloat = aFloat * lifePercentage;
-        final int aInt = (int) (this.round(bFloat, 2));
-        g.fillRect(x, y, aInt, height);
+        final double aDouble = width / 100d;
+        final double bDouble = aDouble * lifePercentage;
+        final int percentWidth = (int) (this.round(bDouble, 2));
+        g.fillRect(x, y, percentWidth, height);
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
     }
