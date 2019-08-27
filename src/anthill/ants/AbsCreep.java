@@ -59,7 +59,7 @@ public abstract class AbsCreep implements Runnable {
     }
 
     public int _getLife() {
-        return this.life;
+        return this.life < 0 ? 0 : this.life;
     }
 
     public int _getMaxLife() {

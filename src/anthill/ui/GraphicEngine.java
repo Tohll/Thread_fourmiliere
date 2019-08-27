@@ -233,8 +233,8 @@ public class GraphicEngine extends JPanel implements Runnable {
         this.drawScenery(g);
         this.drawAnthills(g);
         this.drawPeons(g);
-        this.drawPredators(g);
         this.drawSoldiers(g);
+        this.drawPredators(g);
         this.drawFoodSpots(g);
         this.drawShadows(g);
         this.drawUI(g);
