@@ -35,10 +35,10 @@ public class Anthills implements ObjectWithRange {
     private final int width;
 
     private Anthills() {
-        this.width = Configuration.SQUARE_SIDE / 10;
-        this.height = Configuration.SQUARE_SIDE / 10;
+        this.width = Configuration.WIDTH / 10;
+        this.height = Configuration.HEIGHT / 10;
         this.sprite = new ImageIcon("img/Ant_hill.png");
-        this.position = new Point(Configuration.SQUARE_SIDE / 2, Configuration.SQUARE_SIDE / 2);
+        this.position = new Point(Configuration.WIDTH / 2, Configuration.HEIGHT / 2);
         this.range = this._computeRange(this.position, this.width + 200, this.height + 200);
         this.foodMonitor = new FoodMonitor(Configuration.STARTING_FOOD_STOCK,
                 Configuration.MAX_SOLDIERS_COUNT + Configuration.MAX_PEONS_COUNT);

@@ -16,20 +16,21 @@ public class Predator extends AbsCreep {
         this.defineStartingPosition();
         this.seek();
         this.destroy();
-        if (!this.anthill._getQueen()._getRunnable()._isAlive()) {
+        if (this.anthill._getQueen()._getRunnable()._getLife() < 1) {
             this.life = 0;
         }
     }
 
     private void defineStartingPosition() {
         do {
-            this.position.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-            this.position.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position));
+            this.position.x = this.rand.nextInt(Configuration.WIDTH) + 1;
+            this.position.y = this.rand.nextInt(Configuration.HEIGHT) + 1;
+        } while (Collisions._getInstance()._isPointInObjectRange(this.anthill, this.position)
+                && this.anthill._getQueen()._getRunnable()._getLife() > 0);
     }
 
     private void destroy() {
-        while (this.anthill._getQueen()._getRunnable()._isAlive() && this.life > 0) {
+        while (this.anthill._getQueen()._getRunnable()._getLife() > 0 && this.life > 0) {
             this.anthill._getQueen()._getRunnable()._receiveDamage(15);
             try {
                 Thread.sleep(500L);

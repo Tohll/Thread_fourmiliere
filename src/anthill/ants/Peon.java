@@ -67,6 +67,7 @@ public class Peon extends AbsCreep {
             this.anthill._foodAccessed();
         }
         this.foodInInventory = 0;
+        this.eat();
     }
 
     private void eat() {
@@ -98,8 +99,8 @@ public class Peon extends AbsCreep {
 
     private void findASpotToSlack() {
         do {
-            this.target.x = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
-            this.target.y = this.rand.nextInt(Configuration.SQUARE_SIDE) + 1;
+            this.target.x = this.rand.nextInt(Configuration.WIDTH) + 1;
+            this.target.y = this.rand.nextInt(Configuration.HEIGHT) + 1;
         } while (!Collisions._getInstance()._isPointInObjectRange(this.anthill, this.target));
     }
 
@@ -144,8 +145,10 @@ public class Peon extends AbsCreep {
                 Thread.currentThread().interrupt();
             }
             this.comeBack();
-            this.eat();
             candidate = (ArrayList<FoodSpot>) FoodSpots._getInstance()._findARandomDiscoveredFoodSpot();
+            if (candidate.isEmpty()) {
+                this.eat();
+            }
         } while (candidate.isEmpty() && this.life > 0);
         if (!candidate.isEmpty()) {
             this.foodSpotCandidate = candidate.get(0);
